@@ -56,7 +56,7 @@ body {
   font-style: normal;
   font-weight: 100;
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.2em;
   line-height: var(--topbar-height);
 }
 
@@ -185,6 +185,10 @@ body {
 }
 
 @media only screen and (min-width: 600px) {
+  .topbar__title {
+    font-size: 1.5em;
+  }
+
   .articles__list {
     flex-direction: row;
     flex-wrap: wrap;
