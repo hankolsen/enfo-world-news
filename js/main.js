@@ -1,5 +1,28 @@
-/* global ArticleRenderer ArticlesService:true */
+/* global ArticleRenderer ArticlesService IntersectionObserver Image:true */
 (function () {
+
+  const fetchImage = url => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = url;
+    image.onload = resolve;
+    image.onerror = reject;
+  });
+
+  const applyImage = (img, src) => {
+    img.classList.add('js-lazy-image--handled');
+    img.src = src;
+    img.classList.add('fade-in');
+  };
+
+  const preloadImage = (image) => {
+    const { src } = image.dataset;
+
+    if (!src) {
+      return;
+    }
+
+    return fetchImage(src).then(() => { applyImage(image, src); });
+  };
 
   /**
    * Render a list of articles
@@ -17,6 +40,29 @@
     articles.forEach((article) => {
       listElement.appendChild(ArticleRenderer.renderArticle(article));
     });
+
+    const images = document.querySelectorAll('.js-lazy-image');
+    if (!('IntersectionObserver' in window)) {
+      Array.from(images).forEach(image => preloadImage(image));
+    } else {
+      let observer;
+      const onIntersection = (entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > 0) {
+            observer.unobserve(entry.target);
+            preloadImage(entry.target);
+          }
+        });
+      };
+      const config = {
+        rootMargin: '50px 0px',
+        threshold: 0.01,
+      };
+      observer = new IntersectionObserver(onIntersection, config);
+      images.forEach((image) => {
+        observer.observe(image);
+      });
+    }
 
   };
 

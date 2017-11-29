@@ -41,7 +41,8 @@ const ArticleRenderer = {
     // Create the image and add an alt text
     const image = document.createElement('img');
     image.classList.add('article__image');
-    image.src = urlToImage;
+    image.classList.add('js-lazy-image');
+    image.dataset.src = urlToImage;
     image.alt = title;
 
     // Create an event listener so we know when the image has been downloaded by the browser
