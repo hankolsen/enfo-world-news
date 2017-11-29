@@ -1,20 +1,22 @@
 /* global self caches:true */
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('enfo-world-news')
+    caches.open('enfo-world-news_v2')
       .then(cache =>
         cache.addAll([
           '/',
           '/index.html',
-          '/css/normalize.css',
+          '/img/logo.png',
           '/css/main.css',
+          '/js/articles.service.js',
+          '/js/article.renderer.js',
+          '/js/main.js',
         ]),
       ),
   );
 });
 
 self.addEventListener('fetch', (event) => {
-  console.log(event.request.url);
   event.respondWith(
     caches
       .match(event.request)
