@@ -5,7 +5,7 @@
   "author": "Hank",
   "license": "ISC",
   "scripts": {
-    "start": "http-server -p5000 -g -o"
+    "start": "http-server -p5000 -g -o -c31536000"
   },
   "devDependencies": {
     "eslint": "^4.12.0",
