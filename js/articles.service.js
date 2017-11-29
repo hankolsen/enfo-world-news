@@ -1,16 +1,15 @@
-const ArticlesService = {
-  /**
-   * Articles cache
-   */
-  _articles: [],
+const ArticlesService = (function () {
 
-  /**
-   * Function to get a list of articles from an API
-   * Returns a Promise that will resolve once the articles have arrived
-   */
-  getArticles: (searchText = '') => {
+  let _articles = [];
 
-    // The URL to the source for the articles
+  const filterArticles = ({ articles, searchText }) =>
+    articles.filter(article =>
+      article.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchText.toLocaleLowerCase()),
+    );
+
+
+  const getArticles = (searchText = '') => {
     const newsApiUrl = 'https://s3.eu-west-2.amazonaws.com/enfo-test-resources/api/articles.json';
 
     return new Promise((resolve, reject) => {
@@ -19,13 +18,13 @@ const ArticlesService = {
        * let's not bother to ask the server again, and re-use the already cached articles.
        * This way we mimick a search/filter service a la an Angular list view
        */
-      if (ArticlesService._articles.length && searchText) {
+      if (_articles.length && searchText) {
 
         // Get the cached articles
-        let articles = ArticlesService._articles;
+        let articles = _articles;
 
         // Filter the articles according to the search text, try to match on both title and description
-        articles = ArticlesService.filterArticles({ articles, searchText });
+        articles = filterArticles({ articles, searchText });
 
         // Resolve the matching articles
         resolve(articles);
@@ -40,13 +39,13 @@ const ArticlesService = {
             let { articles } = data;
 
             // Cache the articles, for the reason explained above
-            ArticlesService._articles = articles;
+            _articles = articles;
 
             // We might end up here if this is the first time we query the API so nothing is yet in the cache.
             // If the user somehow has added a search text we need to handle that here too.
             if (searchText) {
               // Filter the data according to the searchtext
-              articles = ArticlesService.filterArticles({ articles, searchText });
+              articles = filterArticles({ articles, searchText });
             }
 
             // Resolve the matching articles
@@ -60,16 +59,11 @@ const ArticlesService = {
           });
       }
     });
-  },
+  };
 
-  /**
-   * Filter the articles according to the search text, try to match on both title and description
-   * @param articles
-   * @param searchText
-   */
-  filterArticles: ({ articles, searchText }) =>
-    articles.filter(article =>
-      article.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      article.description.toLowerCase().includes(searchText.toLocaleLowerCase()),
-    ),
-};
+
+  return {
+    getArticles,
+  };
+
+})();

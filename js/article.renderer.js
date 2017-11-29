@@ -1,28 +1,4 @@
-const ArticleRenderer = {
-
-  /**
-   * Main method to render an article list element from an article json object
-   * @param article
-   * @returns {Element}
-   */
-  renderArticle: (article) => {
-    // Create a list item and add classes for styling. Add loading class for fancy animations
-    const listItem = document.createElement('li');
-    listItem.classList.add('article');
-    listItem.classList.add('loading');
-
-    // Add an image with a link at the top
-    listItem.appendChild(ArticleRenderer._createImageWithLink(article));
-
-    // Create a div to hold the heading and paragraph of the article
-    const textWrapper = document.createElement('div');
-    textWrapper.classList.add('article__text-section');
-    textWrapper.appendChild(ArticleRenderer._createArticleHeader(article));
-    textWrapper.appendChild(ArticleRenderer._createArticleDescription(article));
-    listItem.appendChild(textWrapper);
-
-    return listItem;
-  },
+const ArticleRenderer = (function () {
 
   /**
    * Helper to create an image wrapped in an link
@@ -32,7 +8,7 @@ const ArticleRenderer = {
    * @returns {Element}
    * @private
    */
-  _createImageWithLink: ({ url, urlToImage, title }) => {
+  const _createImageWithLink = ({ url, urlToImage, title }) => {
     // Create the link element with class and url
     const imageLink = document.createElement('a');
     imageLink.classList.add('article__image-link');
@@ -60,8 +36,7 @@ const ArticleRenderer = {
     imageLink.appendChild(imageWrapper);
 
     return imageLink;
-  },
-
+  };
 
   /**
    * Helper to create the header with a link
@@ -70,7 +45,7 @@ const ArticleRenderer = {
    * @returns {Element}
    * @private
    */
-  _createArticleHeader: ({ title, url }) => {
+  const _createArticleHeader = ({ title, url }) => {
     // Create an h2 for the article title
     const articleHeader = document.createElement('h2');
     articleHeader.classList.add('article__header');
@@ -84,7 +59,7 @@ const ArticleRenderer = {
     articleHeader.appendChild(headerLink);
 
     return articleHeader;
-  },
+  };
 
   /**
    * Helper to create the description section of the article
@@ -92,12 +67,43 @@ const ArticleRenderer = {
    * @returns {Element}
    * @private
    */
-  _createArticleDescription: ({ description }) => {
+  const _createArticleDescription = ({ description }) => {
     // Create a simple paragraph with the article description in it
     const paragraph = document.createElement('p');
     paragraph.classList.add('article__description');
     paragraph.innerHTML = description;
 
     return paragraph;
-  },
-};
+  };
+
+
+  /**
+   * Main method to render an article list element from an article json object
+   * @param article
+   * @returns {Element}
+   */
+  const renderArticle = (article) => {
+    // Create a list item and add classes for styling. Add loading class for fancy animations
+    const listItem = document.createElement('li');
+    listItem.classList.add('article');
+    listItem.classList.add('loading');
+
+    // Add an image with a link at the top
+    listItem.appendChild(_createImageWithLink(article));
+
+    // Create a div to hold the heading and paragraph of the article
+    const textWrapper = document.createElement('div');
+    textWrapper.classList.add('article__text-section');
+    textWrapper.appendChild(_createArticleHeader(article));
+    textWrapper.appendChild(_createArticleDescription(article));
+    listItem.appendChild(textWrapper);
+
+    return listItem;
+  };
+
+  return {
+    renderArticle,
+  };
+
+})();
+

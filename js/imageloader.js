@@ -1,15 +1,33 @@
 /* global IntersectionObserver Image:true */
+const ImageLoader = (function () {
 
-const ImageLoader = {
+  const _fetchImage = url => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = url;
+    image.onload = resolve;
+    image.onerror = reject;
+  });
 
-  load: () => {
+
+  const _preloadImage = (image) => {
+    const { src } = image.dataset;
+
+    if (!src) {
+      return undefined;
+    }
+
+    return _fetchImage(src).then(() => { image.src = src; });
+  };
+
+
+  const load = () => {
     // Grab all our lazy loadable images
     const images = document.querySelectorAll('.js-lazy-image');
 
     // Make sure that the browser supports Intersection Observer
     if (!('IntersectionObserver' in window)) {
       // No support, so we need to load all the images directly
-      images.forEach(image => ImageLoader._preloadImage(image));
+      images.forEach(image => _preloadImage(image));
     } else {
       // Let's set up an observer!
       let observer;
@@ -18,7 +36,7 @@ const ImageLoader = {
         entries.forEach((entry) => {
           if (entry.intersectionRatio > 0) {
             observer.unobserve(entry.target);
-            ImageLoader._preloadImage(entry.target);
+            _preloadImage(entry.target);
           }
         });
       };
@@ -35,24 +53,12 @@ const ImageLoader = {
       });
 
     }
-  },
-
-  _preloadImage: (image) => {
-    const { src } = image.dataset;
-
-    if (!src) {
-      return undefined;
-    }
-
-    return ImageLoader._fetchImage(src).then(() => { image.src = src; });
-  },
+  };
 
 
-  _fetchImage: url => new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = url;
-    image.onload = resolve;
-    image.onerror = reject;
-  }),
+  return {
+    load,
+  };
 
-};
+})();
+
