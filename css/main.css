@@ -1,0 +1,205 @@
+html {
+  color: #222;
+  background: #f2f2f2;
+  font-size: 1em;
+  line-height: 1.4;
+  --brand-light: #64c3ee;
+  --brand-dark: #0071bc;
+  --topbar-height: 60px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Placeholder styling */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: var(--brand-light);
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  color: var(--brand-light);
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+  color: var(--brand-light);
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: var(--brand-light);
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--topbar-height);
+  background: #060914;
+  /* For some reason when hovering over images they otherwise appear on top of the topbar */
+  z-index: 1;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.topbar__logo {
+  width: 70px;
+  position: absolute;
+  top: 5px;
+  left: 8px;
+}
+
+.topbar__title {
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 100;
+  margin: 0;
+  font-size: 1.5em;
+  line-height: var(--topbar-height);
+}
+
+.search__form {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  line-height: var(--topbar-height);
+}
+
+.search__field {
+  outline: none;
+  width: 30px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: var(--brand-light);
+  background: var(--brand-dark) url('data:image/svg+xml;charset=UTF-8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat right 8px top 10px;
+  padding: 12px 20px 12px 20px;
+  transition: width 0.4s ease-in-out;
+}
+
+.search__field:focus {
+  width: 100%;
+}
+
+.articles__list-wrapper {
+  /* Compensate for the top bar */
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+}
+
+.articles__list {
+  /* Mobile first width */
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.article {
+  margin: 8px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  /* Prevent the article from growing to the same height as the tallest article in the row */
+  /* align-self: flex-start; */
+}
+
+.article__image-wrapper {
+  min-height: 150px;
+  background: #eaeaea url('data:image/svg+xml;charset=UTF-8,<svg width="161" height="126" viewBox="0 0 161 126" xmlns="http://www.w3.org/2000/svg"><g fill="#FFFFFF" fill-rule="evenodd"><path d="M0 0v126h161V0H0zm148.024 112.336H13.734V13.663h134.29v98.673z"/><path d="M21 102l27.7-28.88 10.38 4.455L91.826 43l12.89 15.292 5.816-3.483L142 102"/><ellipse cx="52" cy="40" rx="12" ry="12"/></g></svg>') no-repeat center;
+  /* To prevent hover scale to stretch outside of the original image size */
+  overflow: hidden;
+}
+
+.article__image {
+  /*
+      Don't let the image spill over, but stretch it all the way
+      Might look a bit bad since these images are only 400px
+  */
+  width: 100%;
+  display: block;
+  transition: all 0.2s ease-out;
+}
+
+.article__image:hover {
+  transform: scale(1.01);
+}
+
+.article__author {
+  margin: 0;
+}
+
+.article__header {
+  color: var(--brand-light);
+  font-style: normal;
+  font-weight: 100;
+  margin: 0 0 10px;
+}
+
+.article__text-section {
+  padding: 16px 24px 24px;
+}
+
+.article__image-link {
+  display: block;
+}
+
+.article__header-link,
+.article__header-link:visited {
+  color: inherit;
+  text-decoration: none;
+  /* Make entire element clickable */
+  display: inline-block;
+  transition: color 0.2s ease-out;
+}
+
+.article__header-link:hover {
+  color: var(--brand-dark);
+}
+
+.article__description {
+  margin: 0;
+  padding: 0;
+}
+
+/* Blue dot before the paragraph text */
+.article__description:before {
+  /*content: "";*/
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  background-color: var(--brand-light);
+  display: inline-block;
+}
+
+@media only screen and (min-width: 600px) {
+  .articles__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .article {
+    width: calc(50% - 16px);
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .article {
+    width: calc(33.333333333% - 16px);
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .article {
+    width: calc(25% - 16px);
+  }
+}

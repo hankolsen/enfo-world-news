@@ -1,0 +1,24 @@
+{
+  "short_name": "Enfo World News",
+  "name": "Enfo World News",
+  "theme_color": "#0071bc",
+  "background_color": "#f2f2f2",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html"
+}
