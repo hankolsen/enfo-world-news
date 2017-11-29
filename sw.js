@@ -1,7 +1,7 @@
 /* global self caches:true */
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('enfo-wordl-news')
+    caches.open('enfo-world-news')
       .then(cache =>
         cache.addAll([
           '/',
