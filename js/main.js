@@ -15,6 +15,8 @@
       listElement.removeChild(listElement.lastChild);
     }
 
+    listElement.classList.remove('empty');
+
     // Create article elements of each article received and attach them to the list element
     articles.forEach((article) => {
       listElement.appendChild(ArticleRenderer.renderArticle(article));

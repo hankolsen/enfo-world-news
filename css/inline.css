@@ -1,0 +1,147 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  color: #222;
+  background: #f2f2f2;
+  font-size: 1em;
+  line-height: 1.4;
+  --brand-light: #64c3ee;
+  --brand-dark: #0071bc;
+  --topbar-height: 60px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--topbar-height);
+  background: #060914;
+  /* For some reason when hovering over images in article li's, they otherwise appear on top of the topbar */
+  z-index: 1;
+  /* Material styling */
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.topbar__logo {
+  width: 70px;
+  position: absolute;
+  top: 5px;
+  left: 8px;
+}
+
+.topbar__title {
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 100;
+  margin: 0;
+  font-size: 1.2em;
+  /* Vertically center */
+  line-height: var(--topbar-height);
+}
+
+.search__form {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  line-height: var(--topbar-height);
+}
+
+.search__label {
+  /* A "cheat" to pass Lighthouse Accessibility test: Add a label to the search field but hide it visually */
+  width: 0;
+  height: 0;
+  display: block;
+}
+
+.search__field {
+  outline: none;
+  width: 30px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: var(--brand-light);
+  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white" */
+  background: var(--brand-dark) url('data:image/svg+xml;charset=UTF-8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat right 8px top 10px;
+  padding: 12px 20px 12px 20px;
+  transition: width 0.4s ease-in-out;
+}
+
+.articles__list-wrapper {
+  /* Compensate for the top bar */
+  margin-top: calc(var(--topbar-height) + 10px);
+}
+
+.articles__list {
+  /* Mobile first width */
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.article {
+  margin: 8px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  /* Prevent the article from growing to the same height as the tallest article in the row */
+  /* align-self: flex-start; */
+
+  transform-style: preserve-3d;
+}
+
+.article__header {
+  color: var(--brand-dark);
+  font-style: normal;
+  font-weight: 100;
+  margin: 0 0 10px;
+}
+
+.article__text-section {
+  padding: 16px 24px 24px;
+
+  /* Animation on enter */
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s, opacity 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.05s;
+}
+
+/************************************************
+  Empty list styling
+ ************************************************/
+.articles__list.empty .article__image-wrapper {
+  /* Add a dummy image while we are waiting for the "real" image */
+  min-height: 250px;
+  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white"*/
+  background: #eaeaea url('data:image/svg+xml;charset=UTF-8,<svg width="161" height="126" viewBox="0 0 161 126" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-rule="evenodd"><path d="M0 0v126h161V0H0zm148.024 112.336H13.734V13.663h134.29v98.673z"/><path d="M21 102l27.7-28.88 10.38 4.455L91.826 43l12.89 15.292 5.816-3.483L142 102"/><ellipse cx="52" cy="40" rx="12" ry="12"/></g></svg>') no-repeat center;
+}
+
+.articles__list.empty .article__header {
+  background: #eaeaea;
+  height: 1.4em;
+}
+
+.articles__list.empty .article__description {
+  height: 80px;
+  background: linear-gradient(#eaeaea 20px, transparent 0), linear-gradient(#eaeaea 20px, transparent 0), linear-gradient(#eaeaea 20px, transparent 0);
+  background-position: 0 0, 0 30px, 0 60px;
+  background-size: 90% 100%, 90% 100%, 70% 100%;
+  background-repeat: no-repeat;
+}
+/************************************************
+  /Empty list styling
+ ************************************************/
