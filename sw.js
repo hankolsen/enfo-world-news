@@ -8,6 +8,7 @@ self.addEventListener('install', (e) => {
           '/index.html',
           '/img/logo.png',
           '/css/main.css',
+          '/js/imageloader.js',
           '/js/articles.service.js',
           '/js/article.renderer.js',
           '/js/main.js',
