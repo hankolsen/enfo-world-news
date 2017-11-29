@@ -1,3 +1,7 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 html {
   color: #222;
   background: #f2f2f2;
@@ -12,6 +16,78 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+
+
+/**********************************************
+  Some normalize.css stuff
+ **********************************************/
+html {
+  /* Prevent adjustments of font size after orientation changes in iOS. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/*  Hide the overflow in IE. */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input {
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input { /* 1 */
+  overflow: visible;
+}
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**********************************************
+  /end normalize.css stuff
+ **********************************************/
+
 
 /* Placeholder styling */
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -30,6 +106,7 @@ body {
   color: var(--brand-light);
 }
 
+
 .topbar {
   position: fixed;
   top: 0;
@@ -37,8 +114,9 @@ body {
   width: 100%;
   height: var(--topbar-height);
   background: #060914;
-  /* For some reason when hovering over images they otherwise appear on top of the topbar */
+  /* For some reason when hovering over images in article li's, they otherwise appear on top of the topbar */
   z-index: 1;
+  /* Material styling */
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
@@ -57,6 +135,7 @@ body {
   font-weight: 100;
   margin: 0;
   font-size: 1.2em;
+  /* Vertically center */
   line-height: var(--topbar-height);
 }
 
@@ -71,12 +150,11 @@ body {
 .search__field {
   outline: none;
   width: 30px;
-  box-sizing: border-box;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   color: var(--brand-light);
-  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white"*/
+  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white" */
   background: var(--brand-dark) url('data:image/svg+xml;charset=UTF-8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') no-repeat right 8px top 10px;
   padding: 12px 20px 12px 20px;
   transition: width 0.4s ease-in-out;
@@ -88,11 +166,7 @@ body {
 
 .articles__list-wrapper {
   /* Compensate for the top bar */
-  margin-top: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f2f2f2;
+  margin-top: calc(var(--topbar-height) + 10px);
 }
 
 .articles__list {
@@ -112,24 +186,37 @@ body {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
   /* Prevent the article from growing to the same height as the tallest article in the row */
   /* align-self: flex-start; */
+
+  transform-style: preserve-3d;
 }
 
 .article__image-wrapper {
-  min-height: 150px;
-  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white"*/
-  background: #eaeaea url('data:image/svg+xml;charset=UTF-8,<svg width="161" height="126" viewBox="0 0 161 126" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-rule="evenodd"><path d="M0 0v126h161V0H0zm148.024 112.336H13.734V13.663h134.29v98.673z"/><path d="M21 102l27.7-28.88 10.38 4.455L91.826 43l12.89 15.292 5.816-3.483L142 102"/><ellipse cx="52" cy="40" rx="12" ry="12"/></g></svg>') no-repeat center;
   /* To prevent hover scale to stretch outside of the original image size */
   overflow: hidden;
 }
 
+.article.loading .article__image-wrapper {
+  /* Add a dummy image while we are waiting for the "real" image */
+  min-height: 250px;
+  /* Firefox requires named colors for inline SVG, so "#ffffff" must be expressed as "white"*/
+  background: #eaeaea url('data:image/svg+xml;charset=UTF-8,<svg width="161" height="126" viewBox="0 0 161 126" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-rule="evenodd"><path d="M0 0v126h161V0H0zm148.024 112.336H13.734V13.663h134.29v98.673z"/><path d="M21 102l27.7-28.88 10.38 4.455L91.826 43l12.89 15.292 5.816-3.483L142 102"/><ellipse cx="52" cy="40" rx="12" ry="12"/></g></svg>') no-repeat center;
+}
+
 .article__image {
-  /*
-      Don't let the image spill over, but stretch it all the way
-      Might look a bit bad since these images are only 400px
-  */
+  /* Don't let the image spill over, but stretch it all the way
+     Might look a bit bad on larger screens since these images are only 400px */
   width: 100%;
   display: block;
-  transition: all 0.2s ease-out;
+
+  /* Animation on enter */
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.article.loading .article__image {
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 .article__image:hover {
@@ -149,9 +236,22 @@ body {
 
 .article__text-section {
   padding: 16px 24px 24px;
+
+  /* Animation on enter */
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s, opacity 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.05s;
+}
+
+.article.loading .article__text-section {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
 }
 
 .article__image-link {
+  /* Cover the entire image area */
   display: block;
 }
 
@@ -159,9 +259,7 @@ body {
 .article__header-link:visited {
   color: inherit;
   text-decoration: none;
-  /* Make entire element clickable */
-  display: inline-block;
-  transition: color 0.2s ease-out;
+  transition: color 0.2s ease-in-out;
 }
 
 .article__header-link:hover {
@@ -184,6 +282,9 @@ body {
   display: inline-block;
 }
 
+/**
+  Responsive styling
+ */
 @media only screen and (min-width: 600px) {
   .topbar__title {
     font-size: 1.5em;

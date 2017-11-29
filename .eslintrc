@@ -8,6 +8,8 @@
   },
   "rules": {
     "no-underscore-dangle": 0,
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
+    "padded-blocks": 0,
     "func-names": 0,
     "function-paren-newline": 0,
     "no-restricted-globals": 0,
