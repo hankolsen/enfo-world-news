@@ -10,7 +10,7 @@ from an external API and renders the result.
 
 ### Lighthouse score
 Since some images are loaded from an external source I can't get performance much higher, unfortunately.  
-![Light house score 100, 94, 100, 100](lighthouse_score.png "Light house score 100, 94, 100, 100")
+[![Light house score 100, 94, 100, 100](lighthouse_score.png "Light house score 100, 94, 100, 100")](https://googlechrome.github.io/lighthouse/viewer/?gist=8c9318bbbbaae88bf34040b23b631bdd)
 
 ### Development setup
 There are a few (optional) npm development dependencies, just for eslint and to create a local http dev server. 
