@@ -1,14 +1,17 @@
 {
-    "extends": "airbnb-base",
-    "globals": {
-        "window": true,
-        "document": true,
-        "fetch": true
-    },
-    "rules": {
-        "no-underscore-dangle": 0,
-        "func-names": 0,
-        "wrap-iife": 0,
-        "max-len": [2, 120]
-    }
+  "extends": "airbnb-base",
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true,
+    "fetch": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "func-names": 0,
+    "function-paren-newline": 0,
+    "no-restricted-globals": 0,
+    "wrap-iife": 0,
+    "max-len": [2, 120]
+  }
 }
