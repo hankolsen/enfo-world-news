@@ -22,6 +22,7 @@ Start the http server with `npm start`.
 ### Future improvements
 * Inline critical css styles
 * Uglify css and js
+* Versioning of static files for service worker to invalidate old cache
 * Gulp build process
 * Auto-complete suggestions for the search field
 * A better search field expansion toggling
