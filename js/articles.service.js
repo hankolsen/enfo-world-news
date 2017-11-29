@@ -35,7 +35,7 @@ const ArticlesService = {
             let { articles } = data;
 
             // Cache the articles, for the reason explained above
-            // ArticlesService._articles = articles;
+            ArticlesService._articles = articles;
 
             // We might end up here if this is the first time we query the API so nothing is yet in the cache.
             // If the user somehow has added a search text we need to handle that here too.
