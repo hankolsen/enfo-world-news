@@ -2,6 +2,8 @@
 An experiment trying to create some kind of a PWA using plain vanilla javascript. The app loads a list of news articles
 from an external API and renders the result.
 
+[Demo](https://enfo-world-news.firebaseapp.com/)
+
 * Tested in Chrome, Firefox and Edge.
 * Uses service-worker to cache static content.
 * Lazy loading images using Intersection Observer.
