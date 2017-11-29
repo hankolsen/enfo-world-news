@@ -138,7 +138,7 @@ body {
 }
 
 .article__header {
-  color: var(--brand-light);
+  color: var(--brand-dark);
   font-style: normal;
   font-weight: 100;
   margin: 0 0 10px;
@@ -162,7 +162,7 @@ body {
 }
 
 .article__header-link:hover {
-  color: var(--brand-dark);
+  color: var(--brand-light);
 }
 
 .article__description {
