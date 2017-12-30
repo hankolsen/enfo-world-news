@@ -2,7 +2,7 @@
 An experiment trying to create some kind of a PWA using plain vanilla javascript. The app loads a list of news articles
 from an external API and renders the result.
 
-[Demo](https://enfoworldnews.com/)
+[Demo - https://enfoworldnews.com/](https://enfoworldnews.com/)
 
 * Tested in Chrome, Firefox and Edge.
 * Uses service-worker to cache static content.
